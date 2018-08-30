@@ -22,7 +22,7 @@ cli:
         prefix: "-t"
       doc: "CSV file with one column and no header row. Contains a subplot title for each data file in corresponding order."
     tick_separator:
-      type: "str?"
+      type: "string?"
       inputBinding:
         prefix: "-s"
       doc: "Single CHAR, separating axis ticks in the data index."
@@ -81,14 +81,14 @@ cli:
     out_file:
       type: "File"
       outputBinding:
-        glob: "out.pdf"
+        glob: "plot.pdf"
       doc: "Plot in PDF format."
 
 container:
   engine: "docker"
   settings:
     image:
-      url: "docker.io/copla/ctp"
+      url: "docker.io/copla/ctp:5.2.1"
 
 
 inputs:
