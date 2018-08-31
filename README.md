@@ -7,6 +7,6 @@ The experiment is based on the [Combination Trianlges Plot](https://github.com/s
 ```bash
 git clone https://github.com/somnonetz/healthy-osa-tds-deeplift-plot-experiment.git
 cd healthy-osa-tds-deeplift-plot-experiment
-pip3 install --user cc-faice=5.2.*
+pip3 install --user cc-faice=5.2
 faice agent red red.yml
 ```
