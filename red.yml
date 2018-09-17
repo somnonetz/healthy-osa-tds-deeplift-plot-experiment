@@ -78,18 +78,11 @@ cli:
       doc: "Y position of upper right (ur) label."
   
   outputs:
-    out_file:
+    plot:
       type: "File"
       outputBinding:
         glob: "plot.pdf"
       doc: "Plot in PDF format."
-
-container:
-  engine: "docker"
-  settings:
-    image:
-      url: "docker.io/copla/ctp:5.2.2"
-
 
 inputs:
   ticks_file:
@@ -138,3 +131,29 @@ inputs:
         url: "https://raw.githubusercontent.com/somnonetz/healthy-osa-tds-deeplift-plot-experiment/master/titles.csv"
         method: "GET"
   columns: 2
+
+outputs:
+  plot:
+    class: "File"
+    connector:
+      pyModule: "cc_core.commons.connectors.http"
+      pyClass: "HttpMockSend"
+      access:
+        url: "http://172.17.0.1:5000/plot.pdf"
+        method: "POST"
+
+container:
+  engine: "docker"
+  settings:
+    image:
+      url: "docker.io/copla/ctp:5.3.2"
+    ram: 1024
+
+execution:
+  engine: "ccagency"
+  settings:
+    access:
+      url: "https://agency.f4.htw-berlin.de/cc"
+      auth:
+        username: "{{agency_username}}"
+        password: "{{agency_password}}"
