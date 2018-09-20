@@ -5,9 +5,10 @@ This is a reproducible experiment in RED format. Use the `faice` CLI tool from t
 The experiment is based on the [Combination Trianlges Plot](https://github.com/somnonetz/combination-triangles-plot) CLI tool.
 
 ```bash
+pip3 install --user --upgrade "cc-faice>=5.3.1,<5.4"
+
 git clone https://github.com/somnonetz/healthy-osa-tds-deeplift-plot-experiment.git
 cd healthy-osa-tds-deeplift-plot-experiment
-pip3 install --user cc-faice=5.3
 
 # local execution via faice agent
 faice agent red red.yml
