@@ -1,4 +1,4 @@
-redVersion: "5"
+redVersion: "6"
 cli:
   cwlVersion: "v1.0"
   class: "CommandLineTool"
@@ -135,13 +135,17 @@ batches:
 
     outputs:
       plot:
-        class: "File"
+        class: File
         connector:
-          pyModule: "cc_core.commons.connectors.http"
-          pyClass: "HttpMockSend"
+          pyModule: "red_connector_ssh.sftp"
+          pyClass: "Sftp"
           access:
-            url: "http://172.17.0.1:5000/plot.pdf"
-            method: "POST"
+            host: "avocado01.f4.htw-berlin.de"
+            port: 22
+            username: "{{cbmi_username}}"
+            password: "{{cbmi_password}}"
+            fileDir: "/home/users/christoph/healthy-osa-tds-deeplift"
+            fileName: "LS_DS_REM_W.pdf"
 
   - inputs:
       ticks_file:
@@ -171,13 +175,17 @@ batches:
 
     outputs:
       plot:
-        class: "File"
+        class: File
         connector:
-          pyModule: "cc_core.commons.connectors.http"
-          pyClass: "HttpMockSend"
+          pyModule: "red_connector_ssh.sftp"
+          pyClass: "Sftp"
           access:
-            url: "http://172.17.0.1:5000/plot.pdf"
-            method: "POST"
+            host: "avocado01.f4.htw-berlin.de"
+            port: 22
+            username: "{{cbmi_username}}"
+            password: "{{cbmi_password}}"
+            fileDir: "/home/users/christoph/healthy-osa-tds-deeplift"
+            fileName: "LS.pdf"
 
   - inputs:
       ticks_file:
@@ -205,6 +213,20 @@ batches:
             url: "https://raw.githubusercontent.com/somnonetz/healthy-osa-tds-deeplift-plot-experiment/master/title_DS.csv"
             method: "GET"
 
+    outputs:
+      plot:
+        class: File
+        connector:
+          pyModule: "red_connector_ssh.sftp"
+          pyClass: "Sftp"
+          access:
+            host: "avocado01.f4.htw-berlin.de"
+            port: 22
+            username: "{{cbmi_username}}"
+            password: "{{cbmi_password}}"
+            fileDir: "/home/users/christoph/healthy-osa-tds-deeplift"
+            fileName: "DS.pdf"
+
   - inputs:
       ticks_file:
         class: "File"
@@ -230,6 +252,20 @@ batches:
           access:
             url: "https://raw.githubusercontent.com/somnonetz/healthy-osa-tds-deeplift-plot-experiment/master/title_REM.csv"
             method: "GET"
+
+    outputs:
+      plot:
+        class: File
+        connector:
+          pyModule: "red_connector_ssh.sftp"
+          pyClass: "Sftp"
+          access:
+            host: "avocado01.f4.htw-berlin.de"
+            port: 22
+            username: "{{cbmi_username}}"
+            password: "{{cbmi_password}}"
+            fileDir: "/home/users/christoph/healthy-osa-tds-deeplift"
+            fileName: "REM.pdf"
 
   - inputs:
       ticks_file:
@@ -257,6 +293,20 @@ batches:
             url: "https://raw.githubusercontent.com/somnonetz/healthy-osa-tds-deeplift-plot-experiment/master/title_W.csv"
             method: "GET"
 
+    outputs:
+      plot:
+        class: File
+        connector:
+          pyModule: "red_connector_ssh.sftp"
+          pyClass: "Sftp"
+          access:
+            host: "avocado01.f4.htw-berlin.de"
+            port: 22
+            username: "{{cbmi_username}}"
+            password: "{{cbmi_password}}"
+            fileDir: "/home/users/christoph/healthy-osa-tds-deeplift"
+            fileName: "W.pdf"
+
 container:
   engine: "docker"
   settings:
@@ -264,11 +314,15 @@ container:
       url: "docker.io/copla/ctp:0.2-5.4.0"
     ram: 1024
 
+#execution:
+#  engine: "ccagency"
+#  settings:
+#    access:
+#      url: "https://agency.f4.htw-berlin.de/cc"
+#      auth:
+#        username: "{{agency_username}}"
+#        password: "{{agency_password}}"
+
 execution:
-  engine: "ccagency"
-  settings:
-    access:
-      url: "https://agency.f4.htw-berlin.de/cc"
-      auth:
-        username: "{{agency_username}}"
-        password: "{{agency_password}}"
+  engine: "ccfaice"
+  settings: {}
